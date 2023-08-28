@@ -1,5 +1,6 @@
 package DataStructures
 
+import scala.::
 import scala.annotation.tailrec
 
 sealed trait Tree[+T]
@@ -17,13 +18,13 @@ object Tree extends App {
   def asListRecursive[T](tree: Tree[T]): List[T] = {
     @tailrec
     // Note that the accumulator should always be an int
-    def asListRec(tree: Tree[T], accumulator: Int): List[T] = {
+    def asListRec(tree: Tree[T], head: List[T], tail: List[T]): List[T] = {
       tree match {
-        case Leaf(a)             => List(a)
+        case Leaf(a)             => tail
         // following the below pattern where you're concatenating on a list, the below seems right but isn't, maybe this is something we can break dow further?
-        case Branch(left, right) => asListRec(Branch(right), accumulator + Branch(left))
+        case Branch(left, right) => asListRec(tree, head :: asList(left), tail :: asList(right))
       }
-      asListRec(tree, 0)
+      asListRec(tree, List[])
     }
   }
 
