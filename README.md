@@ -2,3 +2,8 @@
 
 # data-structures
 
+# Collections
+
+# Functional
+
+# Data Structures
